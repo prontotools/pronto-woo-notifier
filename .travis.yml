@@ -6,4 +6,11 @@ services:
   - docker
 
 before_install:
-  - docker pull prontotools/pronto-woo-notifier
+  - docker build -t prontotools/pronto-woo-notifier .
+
+script:
+  - echo "hello world!"
+
+after_success:
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker push prontotools/pronto-woo-notifier
