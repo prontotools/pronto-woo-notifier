@@ -12,5 +12,7 @@ script:
   - echo "hello world!"
 
 after_success:
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker push prontotools/pronto-woo-notifier
+  - if [ "$TRAVIS_BRANCH" == "develop" ]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push prontotools/pronto-woo-notifier
+    fi
