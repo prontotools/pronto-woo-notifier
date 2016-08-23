@@ -7,9 +7,6 @@ services:
 
 env:
   global:
-    - secure: YA6QtDCl9taPyILAruSVqk03iUmqKRqqbPiFcbtli+iYqhQxA4p07bdCcxTo9de+i7bJj0dfYlqXpqCBhy+YVJrFSAzrAOru5Ri2O0ZeQquszVH0gwj599kBLJRm9aoeYtB4RW6ODRovjWLnlKxeyXJKsFgxOP9oIlr5+CN1QHn/XytmXxTZ57gXeWB4P+Czlkttr5g8Hf3sxie4n0FK4Ypdz4EpYlzp7j70qlGlt11sD0Y05GajqjE7YWaWaOdhucPr9XF6WS/5ut4pLip9i9Wm27bvNNIRT4GhWegXprWUheXWFHTydUbkeLn1Y+4YJOs4Gvjs+yJEZk+An9OmAkI+OLZ1RQKJwF1g3tL4eYeAGSJQVZq3eBQ135KfhdMEmZKWtfN4h1apliPwGhEjDcRIHyXiLA475CtjqJqUHQNBW30KyrvsgjuE87o/ZG4X1OiMkzXaMmTdKQqV4jLETbqtSD+BDrYOirp7EkZ/QRWMJrwyXqkP0DKzejQkeva7Ft1RpTccCoMxz4HBXSH03TcHA2XEXsrDyLeBPlWcTLZ3DW+U/l6vdrxzV53matf2UzezD7Vv67Ta/eWMq5k6EKpjOVZyIflBCCuThxNE9A+jefoFrpKHkw7fkUS0fmQtX0obTZbnKRwXjQOn+HUavIt8XUbh9qeDp2+wtDMVFlY= # DOCKER_EMAIL
-    - secure: hKEm5SNMI9oljylmbMcdSLqSZc5AN0PZUuZbKzzsFcQQZ4OaZy1uoDA/zufPwW842lWWJP3aaDyNFWrlCu+3gRmU4Y032T1X17bSb+BSgs0mJtaMbIvTLfyDqXj0DFltvgMwcOQg3PEcbU9E98OdigYvLiTphGhVH/bsahcWELV9vvAOP3uA7Ryypp0Sd1i8UbPHMhdW5yPMNWnbkSbL8/BN4+ItdlyvoEyGqYUzqhrVtuqr6CPHAdRP6AOAkELypV8T2EJ7gwN+73V8HjHMJvtWcAGlJy932EsY3o51Hg60uWmhgYoM/IbXiKI35vyZJ3QPdFQKlM1mO3QgnGPoJbn6J2azDcwRwZeRpLeeChdnwLwfKOsoksSbwLVjcHb7QnfzNYogKEv9cJ8v9/Y1NhPO+5oBibgHkiQKiQ06eIIim2FMqYZ02qNwMZgXl/3EKywlhAEc+e7zrT4dvdsL2Y8fRCp3JYD8zYBP9TmnGgYcK+Bjfqts81b9PdGdYdKxEL1O3B6AlFWpXOP3EEnF87lVngv/enoe0BimG9BAFwojLScWXdfSoWWufIrc6SkQWqxALuZdUAGehh+q8eAmjJm1nUHD+vwUXXHZvox5jp8W8RwV4ZLTImMk/0H+RES9thzvA9DGPy2okLsb6bzDfkgVEmKciof3lW2WkePq1Gs= # DOCKER_USER
-    - secure: BHnJLNuS1XuV5Kc4ZYc/TMxHgwCVPuZYk1Zga3UYjAdS6iiCE+X+rtr1VCvNEeJ+Do43+qfW9cgJWJU3cLhoPFkOi7UZKwyyJuigTg9eI+nwTs7LOf5n9/l97O11m/665wqaytEZk4XlNe/MSOW5SplnRgvt/nP0G/W4D9D6HfhuKjoTwCFLp0pSjBtgBYYcze/BGlxphllGUwF5az7PlMRuBeea1TEX6zye3an0fKOO+/8rSFE/lu5GZc5kAvQ1obnXlNj/+yRGQz+aea1Xx51ssw/eeM2IEOMR4ujRoiujViWFD9n5ELqRwYD0Ef88r4bYUKvn0eT+6D9+G1GEmxU3tyjxjHxhtw+u9bMOc/T+0C5brXyTvxb0N3eseDNHqNo53y7c8pSLfC+n8l07uZhvfSz9PejSn+e8zdH0zmGHpFZn2xZWd74aHnvmzkuCGscjm3ufUloo8ce8evad8jL+FfZxaBGA13euk+fUCtvfWuuD7OrDlkqprv4LktncVNknkjd8u/dYMSnHkLqynBNuqkzXlpd49jWxMihEn8oxLIU9xPea+7mx5WKAbugKgotKvhIznImIBkwC2oOwXJWo8blPfcinZCpPqGGzSsdcGEl54hF42bCrnzDDpT0aptkxQNtepCpKQ2BKdjaKa+jw0jSygjRolU+e+raSEGo= # DOCKER_PASS
     - REPO=prontotools/pronto-woo-notifier
     - COMMIT=${TRAVIS_COMMIT::8}
 
@@ -21,6 +18,6 @@ script:
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "develop" ]; then
-    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS";
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push $REPO;
     fi
