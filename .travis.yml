@@ -5,14 +5,22 @@ language: ruby
 services:
   - docker
 
+env:
+  global:
+    - secure: BFOeSuJ57q8wMYSBUPJwmG4A+ktACofmC8ZA7/vFKfniywwxw/6F6TnDA/KAZeziE+1vPSVLPoRwFr5VXQ2p5EpJRQ78KEb9oPT5L7YxWaWgA9xmnLyVZSfl48p78zCJZK2olHDuZM31p91e86BG2JaEGmz9dYixkMTxle/6fQSThF0FWVflJOeTK5Uo0lgfTNX++o/aLT0zoMhx0zWhmAmoJoiHUkcBb+cJoXX5dWNsl0YrAPWahkOzeqDWCeCZCuAM9BOxewKM2ynOWSvDKAmLX/Fy+OAYVekm9qG+pit7bfmFU0XLgb9/6n/HH+dk78zj2fdnwOjvy3e2uswfzJhQHwufTJLJ+UAs95albe6PK7LvzC1vPcPRo3MU/xLza0IHzds6kg46CX1MRPyHX0GI2sa/hpFWx2NsUMq6h9zSsMSUbETs/VyiM52s8wZEar/4hVWalZOjU4KZlqjS4E0zFBBSM2yvkoIJvvyUNkyujWkMNLZ138aF3v4p4/46XcTKnNmwsaIDrJOb8AtnRiEvRH6sURJJ+Lcf+nH3C1jg+13hK1GlcJVMAXnvIC8fiXSRyw36Wv7+WI2W1052ddI0v5kOftYQTrgAs4OtEAoneB8ieOSQm79YeBEha5nw7IbG1uVQhrMoHH0ZzgLEINtsYzi00pRUpjQZ1UEzl0s= # DOCKER_EMAIL
+    - secure: Ncy3nC4QXMbHG5qYAx2Ld7nOwGX2zqZ8C3387Bci8N8Fng6gTAYtn6Yt2KQcw0AR5u4MZd6p18y0aRCV2AkZtsHtlnPAjL17XSLC3VuMGuBiNiwfCy7lBaxquhzJTrMdSDHpwo1NdxI+SCZEGgJKzN9ZMQlqK7pPdROJFKKSbd5eLezEAndx5Kd8iz6W7l2xPEiVAtAA9g59ONKIxv/Y0OdGrL5CV5xjTqvzvkavgxRIxIZxxrIcY8Za4wWE/Q/0WXcqI/RXhcqJq6DpP4kTFmo4Jbfkpgvfbyv0A/Hb71494QA5aP4dTiRrVJg/N5BeoPAVXMNxJKQ0prq7Z94u79bIYi3v5qpLOxAtq46fazLrWNBFGigLOtdY8GntaMdoZdT6MrnnTPE/HCnX+BjlB/l5F5q9Aclw3XbmltA9vpoDM+p0vXPCUw70dy1yo1D0hiN4QoRhE4OjvNoWvBjRBGUEHC/RUsgw2lnU3aZm5/e8LQBVwX/yhjLAWaec5RyL440HuJKS3zXwspO7Npi+qXSE+HJhgc9p5guVQyePywaUSE0ZY2EKxLlwKrqyI0ChvK1Veu4n7eS4SaPiaXbxqLjUi/ooSNmnkqQwcqdJZZyf/Oj/ufr0u5QyUGEYGBRrIkui86gasQo1R2VXticHKIgcFMXEgqgpKoDqD+s278k= # DOCKER_USER
+    - secure: DEQapNt8xI864tvrDEfieXp4dhUnB99Fbg28G0XnyGPhVMQGHu1cI9jGp2vVnMPjIEtc9HrtPihp79jtJEoXnzN7LgyAKU0Q5FveORLfvz2MHwXIa9DKAD9k/dnodgX29RsqKq1CTBbdtJgTIPjN9M1KNBerH0ChdB1g36PUxX0oavu8+8DkzP2GzY92rfhB5tzIXbFr+0NAEbt6eHEQUrD9PVe3AD9OXOwJjMVLy/3SJKML0aMvCb7Dn/uDQthbPo5nNdJ6OxwGtvsNBCg2DQsPWtVXKWSE3qUiYHvhQ73hz5gHMBuCcdaqTjqntgpqc8VzrPeibi7W/TxYe5IWXRhbjYrPo8SyMZ26rxkNgA65BcEPeXnvaHOuGMw4zSQK5QfdL8qNYqjsnL/1UhPsA6jqywbQAr5i124YRvHWmNg1DmhXNucEufNYyzpfPS77Qio6JL604szMd66wTbSzszCYprqPwmb0EzNOHtIFTAUVZEndzsK9P41YS0TMHUS0sIw1qgl8kdMjY6YccjOU4TVb5BCk8JbGRxY0feyZFGnMYmcjDjxUodkjdS/o5cLLn8CrpAX2Z0HsOY6dAatgisY24zoo1tpo97b3eHjv9cyQAAKkbwP6E43FUwcxhJl/R1woeoYDa18EB5NmerWhV3RRcJ6uHyZPJvP0R5y0Sg8= # DOCKER_PASS
+    - REPO=prontotools/pronto-woo-notifier
+    - COMMIT=${TRAVIS_COMMIT::8}
+
 before_install:
-  - docker build -t prontotools/pronto-woo-notifier .
+  - docker build -t $REPO:$COMMIT .
 
 script:
   - echo "hello world!"
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "develop" ]; then
-    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push prontotools/pronto-woo-notifier;
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS";
+    docker push $REPO;
     fi
