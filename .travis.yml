@@ -8,7 +8,9 @@ services:
 install: true
 
 before_script:
-  - docker-compose up
+  - docker-compose up -d
+  - docker-compose exec web rake db:create
+  - docker-compose exec web rake db:migrate
 
 script:
   - docker-compose exec web rake test
