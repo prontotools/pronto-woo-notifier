@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901030019) do
+ActiveRecord::Schema.define(version: 20160901042330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "plugin_trackers", force: :cascade do |t|
+    t.integer  "site_id"
+    t.integer  "plugin_id"
+    t.string   "current_version"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["plugin_id"], name: "index_plugin_trackers_on_plugin_id", using: :btree
+    t.index ["site_id"], name: "index_plugin_trackers_on_site_id", using: :btree
+  end
 
   create_table "plugins", force: :cascade do |t|
     t.string   "name"
