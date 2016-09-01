@@ -1,0 +1,8 @@
+version: '2'
+services:
+  sut:
+    build: .
+    command:
+      - bash -c "rake db:create RAILS_ENV=test && rake db:migrate RAILS_ENV=test && rake test"
+    volumes:
+      - .:/app
