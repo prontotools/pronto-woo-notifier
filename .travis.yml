@@ -5,6 +5,8 @@ language: ruby
 services:
   - docker
 
+install: true
+
 before_script:
   - docker-compose up -d
 
