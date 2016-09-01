@@ -13,6 +13,10 @@ env:
 before_install:
   - docker build -t $REPO:$COMMIT .
 
+script:
+  - docker-compose up -d
+  - docker-compose exec web rake test
+
 after_success:
   - if [ "$TRAVIS_BRANCH" == "develop" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
