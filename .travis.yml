@@ -8,4 +8,4 @@ services:
 install: true
 
 script:
-  - docker-compose -f docker-compose.yml.test up -d
+  - docker-compose -f docker-compose.yml.test up
