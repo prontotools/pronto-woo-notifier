@@ -17,7 +17,7 @@ class PluginsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create plugin" do
     assert_difference('Plugin.count') do
-      post plugins_url, params: { plugin: { lastest_version: @plugin.lastest_version, name: @plugin.name } }
+      post plugins_url, params: { plugin: { latest_version: @plugin.latest_version, name: @plugin.name } }
     end
 
     assert_redirected_to plugin_url(Plugin.last)
@@ -34,7 +34,7 @@ class PluginsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update plugin" do
-    patch plugin_url(@plugin), params: { plugin: { lastest_version: @plugin.lastest_version, name: @plugin.name } }
+    patch plugin_url(@plugin), params: { plugin: { latest_version: @plugin.latest_version, name: @plugin.name } }
     assert_redirected_to plugin_url(@plugin)
   end
 

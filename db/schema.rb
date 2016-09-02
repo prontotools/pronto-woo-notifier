@@ -27,9 +27,9 @@ ActiveRecord::Schema.define(version: 20160902062308) do
 
   create_table "plugins", force: :cascade do |t|
     t.string   "name"
-    t.string   "lastest_version"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "latest_version"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "sites", force: :cascade do |t|

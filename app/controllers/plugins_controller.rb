@@ -1,3 +1,5 @@
+require "http"
+
 class PluginsController < ApplicationController
   before_action :set_plugin, only: [:show, :edit, :update, :destroy]
 
@@ -61,6 +63,19 @@ class PluginsController < ApplicationController
     end
   end
 
+  def sync
+    response = HTTP.get("http://prontotools.pi.bypronto.com/api/pronto/get_all_woocommerce_plugins_and_latest_version/")
+    return unless response.status.success?
+
+    all_plugins = response.parse['plugins']
+    all_plugins.each do |name, version|
+        Plugin.find_or_create_by(name: name){ |plugin| plugin.latest_version = version}
+    end
+
+    render :nothing => true, :status => 200, :content_type => 'text/html'
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_plugin
@@ -69,6 +84,6 @@ class PluginsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def plugin_params
-      params.require(:plugin).permit(:name, :lastest_version)
+      params.require(:plugin).permit(:name, :latest_version)
     end
 end

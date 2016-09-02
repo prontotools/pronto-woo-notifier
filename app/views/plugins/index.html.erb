@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Lastest version</th>
+      <th>Latest version</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,7 +15,7 @@
     <% @plugins.each do |plugin| %>
       <tr>
         <td><%= plugin.name %></td>
-        <td><%= plugin.lastest_version %></td>
+        <td><%= plugin.latest_version %></td>
         <td><%= link_to 'Show', plugin %></td>
         <td><%= link_to 'Edit', edit_plugin_path(plugin) %></td>
         <td><%= link_to 'Destroy', plugin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
