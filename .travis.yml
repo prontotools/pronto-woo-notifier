@@ -13,6 +13,7 @@ before_script:
   - docker-compose exec web rake db:migrate
 
 script:
+  - sleep 5
   - docker-compose exec web rake test
 
 after_script:
