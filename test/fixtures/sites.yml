@@ -1,5 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
 one:
-  name: CentextApartment
-  domain: http://www.centextapartment.com
-  port: 9999
+  name: MyString
+  domain: MyString
+  port: MyString
+
+two:
+  name: MyString
+  domain: MyString
+  port: MyString

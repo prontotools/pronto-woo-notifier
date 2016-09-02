@@ -1,5 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: WooCommerce
-  lastest_version: 1.0.0
+  name: MyString
+  lastest_version: MyString
+
+two:
+  name: MyString
+  lastest_version: MyString
