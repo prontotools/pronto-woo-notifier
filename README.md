@@ -1,4 +1,6 @@
-# README
+# Pronto Woo Notifier
+
+[![Build Status](https://travis-ci.org/prontotools/pronto-woo-notifier.svg?branch=develop)](https://travis-ci.org/prontotools/pronto-woo-notifier)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.

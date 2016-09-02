@@ -9,6 +9,7 @@ install: true
 
 before_script:
   - docker-compose up -d
+  - sleep 5
   - docker-compose exec web rake db:create
   - docker-compose exec web rake db:migrate
 
