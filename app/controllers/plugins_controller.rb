@@ -64,16 +64,16 @@ class PluginsController < ApplicationController
   end
 
   def sync
-    response = HTTP.get("http://prontotools.pi.bypronto.com/api/pronto/get_all_woocommerce_plugins_and_latest_version/")
+    url = "http://prontotools.pi.bypronto.com/api/pronto/get_all_woocommerce_plugins_and_latest_version/"
+    response = HTTP.get(url)
     return unless response.status.success?
-
     all_plugins = response.parse['plugins']
     all_plugins.each do |name, version|
-        Plugin.find_or_create_by(name: name){ |plugin| plugin.latest_version = version}
+        Plugin.find_or_initialize_by(name: name).update_attributes(
+          {latest_version: version}
+        )
     end
-
-    render :nothing => true, :status => 200, :content_type => 'text/html'
-
+    render :status => 200, :content_type => 'text/html', :body => ""
   end
 
   private
