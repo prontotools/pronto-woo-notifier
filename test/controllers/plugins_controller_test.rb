@@ -57,7 +57,7 @@ class PluginsControllerTest < ActionDispatch::IntegrationTest
 
       plugin = Plugin.find_by(name: "woocommerce-follow-up-emails")
       assert_equal plugin.latest_version, "4.4.14"
-      assert_response :success
+      assert_redirected_to plugins_url
   end
 
   test "should update plugin version if already exist" do
@@ -77,7 +77,24 @@ class PluginsControllerTest < ActionDispatch::IntegrationTest
 
       plugin = Plugin.find_by(name: "WooCommerce")
       assert_equal "4.4.14", plugin.latest_version
-      assert_response :success
+      assert_redirected_to plugins_url
+  end
+
+  test "should redirect to plugins url when got error" do
+      url = "http://prontotools.pi.bypronto.com/api/pronto/get_all_woocommerce_plugins_and_latest_version/"
+      body_response = {
+          "status": "error",
+      }.to_json
+      stub_request(:get, url).to_return(
+        :status => 500, :body => body_response, :headers => {
+          'Content-Type' => 'application/json'
+        }
+      )
+
+      assert_no_difference "Plugin.count" do
+        get plugins_sync_url
+      end
+      assert_redirected_to plugins_url
   end
 
 end

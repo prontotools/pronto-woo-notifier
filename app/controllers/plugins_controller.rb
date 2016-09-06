@@ -66,14 +66,17 @@ class PluginsController < ApplicationController
   def sync
     url = "http://prontotools.pi.bypronto.com/api/pronto/get_all_woocommerce_plugins_and_latest_version/"
     response = HTTP.get(url)
-    return unless response.status.success?
+    redirect_to plugins_url and return unless response.status.success?
     all_plugins = response.parse['plugins']
     all_plugins.each do |name, version|
         Plugin.find_or_initialize_by(name: name).update_attributes(
           {latest_version: version}
         )
     end
-    render :status => 200, :content_type => 'text/html', :body => ""
+    respond_to do |format|
+      format.html { redirect_to plugins_url, notice: 'All Plugins was successfully updated lastest version.' }
+      format.json { head :no_content }
+    end
   end
 
   private

@@ -10,6 +10,7 @@ class SitesController < ApplicationController
   # GET /sites/1
   # GET /sites/1.json
   def show
+    @plugin_trackers = @site.plugin_trackers.all
   end
 
   # GET /sites/new
@@ -66,7 +67,7 @@ class SitesController < ApplicationController
     sites.each do |site|
       url = URI.join(site.domain, "/api/pronto/get_active_woocommerce_plugins_and_version/")
       response = HTTP.get(url)
-      return unless response.status.success?
+      next unless response.status.success?
       all_plugins = response.parse['plugins']
       all_plugins.each do |name, version|
         plugin = Plugin.find_by(name: name)
@@ -75,7 +76,10 @@ class SitesController < ApplicationController
         ).update_attributes({current_version: version})
       end
     end
-    render :status => 200, :content_type => 'text/html', :body => ""
+    respond_to do |format|
+      format.html { redirect_to sites_url, notice: 'All Plugins version was successfully updated for each site.' }
+      format.json { head :no_content }
+    end
   end
 
   private

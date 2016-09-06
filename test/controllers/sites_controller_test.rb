@@ -68,7 +68,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     assert_equal plugin.name , "WooCommerce"
     assert_equal plugin.latest_version , "1.0.0"
 
-    assert_response :success
+    assert_redirected_to sites_url
   end
 
   test "should update plugin tracker when that site has that plugin" do
@@ -97,7 +97,26 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     assert_equal plugin.name , "WooCommerce"
     assert_equal plugin.latest_version , "1.0.0"
 
-    assert_response :success
+    assert_redirected_to sites_url
   end
+
+  test "should redirect ro sites url when error" do
+    url = "http://www.pclantech.com/api/pronto/get_active_woocommerce_plugins_and_version/"
+    body_response = {
+        "status": "error"
+    }.to_json
+    stub_request(:get, url).to_return(
+      :status => 5000, :body => body_response, :headers => {
+        'Content-Type' => 'application/json'
+      }
+    )
+
+    assert_no_difference "Site.first.plugins.count" do
+      get sites_sync_all_plugins_url
+    end
+
+    assert_redirected_to sites_url
+  end
+
 
 end
