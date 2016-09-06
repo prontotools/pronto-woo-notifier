@@ -15,5 +15,24 @@
   <%= @site.port %>
 </p>
 
+<table>
+  <thead>
+    <tr>
+      <th>Plugin</th>
+      <th>Current Version</th>
+      <th>Latest Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @plugin_trackers.each do |plugin_tracker| %>
+      <tr>
+        <td><%= plugin_tracker.plugin.name %></td>
+        <td><%= plugin_tracker.current_version %></td>
+        <td><%= plugin_tracker.plugin.latest_version %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <%= link_to 'Edit', edit_site_path(@site) %> |
 <%= link_to 'Back', sites_path %>
