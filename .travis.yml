@@ -7,10 +7,13 @@ cache: docker
 services:
   - docker
 
+env:
+  DOCKER_COMPOSE_VERSION: 2
+
 install: true
 
-before_script:
-  -docker-compose -f docker-compose.test.yml build
+# before_script:
+#   -docker-compose -f docker-compose.test.yml build
 
 script:
   - docker-compose -f docker-compose.test.yml run sut
