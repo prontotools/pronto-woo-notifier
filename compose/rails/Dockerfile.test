@@ -10,6 +10,14 @@ ADD Gemfile Gemfile
 ADD Gemfile.lock Gemfile.lock
 RUN bundle install
 
+COPY ./compose/rails/entrypoint.sh /entrypoint.sh
+RUN sed -i 's/\r//' /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+COPY ./compose/rails/run-test.sh /run-test.sh
+RUN sed -i 's/\r//' /run-test.sh
+RUN chmod +x /run-test.sh
+
 RUN mkdir -p $APPLICATION_ROOT
 WORKDIR $APPLICATION_ROOT
 ADD . $APPLICATION_ROOT

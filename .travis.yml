@@ -9,11 +9,11 @@ services:
 
 install: true
 
-before_script:
-  - docker-compose up -d
+# before_script:
+#   -docker-compose up -d
 
 script:
-  - docker-compose exec web rake test
+  - docker-compose -f docker-compose.test.yml run sut
 
 after_script:
   - docker-compose down

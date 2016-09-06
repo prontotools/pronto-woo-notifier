@@ -3,8 +3,11 @@ services:
   db:
     image: postgres
   web:
-    build: .
-    command: bash -c "sleep 5 && rake db:create && rake db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    build:
+      context: .
+      dockerfile: ./compose/rails/Dockerfile
+    entrypoint: /entrypoint.sh
+    command: /start-dev.sh
     volumes:
       - .:/app
     ports:
