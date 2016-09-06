@@ -36,7 +36,7 @@ class SiteTest < ActiveSupport::TestCase
     test "domain should be url format" do
         @site.domain = "www.24"
         assert_not @site.save
-        assert_equal @site.errors.full_messages, ["Domain is invali"]
+        assert_equal @site.errors.full_messages, ["Domain is invalid"]
     end
 
 end
