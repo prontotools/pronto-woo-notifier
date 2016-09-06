@@ -9,8 +9,8 @@ services:
 
 install: true
 
-# before_script:
-#   -docker-compose up -d
+before_script:
+  -docker-compose -f docker-compose.test.yml build
 
 script:
   - docker-compose -f docker-compose.test.yml run sut
