@@ -46,7 +46,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to sites_url
   end
 
-  test "should create new plugin tracker when that site no that plugin" do
+  test "should create new plugin tracker when that site no that plugin(sync_all)" do
     url = "http://www.pclantech.com/api/pronto/get_active_woocommerce_plugins_and_version/"
     body_response = {
         "status": "ok", "plugins": {"WooCommerce": "4.4.14"}
@@ -58,7 +58,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     )
 
     assert_difference "Site.first.plugins.count" do
-      get sites_sync_all_plugins_url
+      get sites_sync_url
     end
 
     plugin_tracker = Site.first.plugin_trackers.first
@@ -71,7 +71,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to sites_url
   end
 
-  test "should update plugin tracker when that site has that plugin" do
+  test "should update plugin tracker when that site has that plugin(sync_all)" do
     url = "http://www.pclantech.com/api/pronto/get_active_woocommerce_plugins_and_version/"
     body_response = {
         "status": "ok", "plugins": {"WooCommerce": "4.4.14"}
@@ -87,7 +87,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     site.plugin_trackers.create(plugin: plugin, current_version: "0.0.0")
 
     assert_no_difference "Site.first.plugins.count" do
-      get sites_sync_all_plugins_url
+      get sites_sync_url
     end
 
     plugin_tracker = Site.first.plugin_trackers.first
@@ -100,7 +100,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to sites_url
   end
 
-  test "should redirect ro sites url when error" do
+  test "should redirect ro sites url when error(sync_all)" do
     url = "http://www.pclantech.com/api/pronto/get_active_woocommerce_plugins_and_version/"
     body_response = {
         "status": "error"
@@ -112,10 +112,83 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     )
 
     assert_no_difference "Site.first.plugins.count" do
-      get sites_sync_all_plugins_url
+      get sites_sync_url
     end
 
     assert_redirected_to sites_url
+  end
+
+
+  test "should create new plugin tracker when that site no that plugin(sync each)" do
+    url = "http://www.pclantech.com/api/pronto/get_active_woocommerce_plugins_and_version/"
+    body_response = {
+        "status": "ok", "plugins": {"WooCommerce": "4.4.14"}
+    }.to_json
+    stub_request(:get, url).to_return(
+      :status => 200, :body => body_response, :headers => {
+        'Content-Type' => 'application/json'
+      }
+    )
+
+    assert_difference "Site.first.plugins.count" do
+      get site_sync_url(@site)
+    end
+
+    plugin_tracker = Site.first.plugin_trackers.first
+    assert_equal plugin_tracker.current_version, "4.4.14"
+
+    plugin = plugin_tracker.plugin
+    assert_equal plugin.name , "WooCommerce"
+    assert_equal plugin.latest_version , "1.0.0"
+
+    assert_redirected_to site_url(@site)
+  end
+
+  test "should update plugin tracker when that site has that plugin(sync_each)" do
+    url = "http://www.pclantech.com/api/pronto/get_active_woocommerce_plugins_and_version/"
+    body_response = {
+        "status": "ok", "plugins": {"WooCommerce": "4.4.14"}
+    }.to_json
+    stub_request(:get, url).to_return(
+      :status => 200, :body => body_response, :headers => {
+        'Content-Type' => 'application/json'
+      }
+    )
+
+    site = Site.first
+    plugin = Plugin.find_by(name: "WooCommerce")
+    site.plugin_trackers.create(plugin: plugin, current_version: "0.0.0")
+
+    assert_no_difference "Site.first.plugins.count" do
+      get site_sync_url(@site)
+    end
+
+    plugin_tracker = Site.first.plugin_trackers.first
+    assert_equal plugin_tracker.current_version, "4.4.14"
+
+    plugin = plugin_tracker.plugin
+    assert_equal plugin.name , "WooCommerce"
+    assert_equal plugin.latest_version , "1.0.0"
+
+    assert_redirected_to site_url(@site)
+  end
+
+  test "should redirect ro sites url when error(sync_each)" do
+    url = "http://www.pclantech.com/api/pronto/get_active_woocommerce_plugins_and_version/"
+    body_response = {
+        "status": "error"
+    }.to_json
+    stub_request(:get, url).to_return(
+      :status => 5000, :body => body_response, :headers => {
+        'Content-Type' => 'application/json'
+      }
+    )
+
+    assert_no_difference "Site.first.plugins.count" do
+      get site_sync_url(@site)
+    end
+
+    assert_redirected_to site_url(@site)
   end
 
 

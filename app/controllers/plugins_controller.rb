@@ -7,6 +7,7 @@ class PluginsController < ApplicationController
   # GET /plugins.json
   def index
     @plugins = Plugin.all
+    @pluins
   end
 
   # GET /plugins/1
@@ -74,7 +75,8 @@ class PluginsController < ApplicationController
         )
     end
     respond_to do |format|
-      format.html { redirect_to plugins_url, notice: 'All Plugins was successfully updated lastest version.' }
+      flash[:success] = "All Plugins was successfully updated lastest version." 
+      format.html { redirect_to plugins_url }
       format.json { head :no_content }
     end
   end

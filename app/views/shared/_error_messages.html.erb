@@ -1,0 +1,12 @@
+<% if site.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      <%= pluralize(site.errors.count, "error") %> prohibited this site from being saved:
+    </div>
+    <ul>
+    <% site.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

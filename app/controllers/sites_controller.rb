@@ -5,6 +5,18 @@ class SitesController < ApplicationController
   # GET /sites.json
   def index
     @sites = Site.all
+    @contexts = []
+    @sites.each do |site|
+      need_update = false
+      installed_plugins = site.plugin_trackers.all
+      installed_plugins.each do |installed_plugin|
+        if installed_plugin.current_version != installed_plugin.plugin.latest_version
+          need_update = true
+          break
+        end
+      end
+      @contexts << {site: site, need_update: need_update}
+    end
   end
 
   # GET /sites/1
@@ -29,7 +41,8 @@ class SitesController < ApplicationController
 
     respond_to do |format|
       if @site.save
-        format.html { redirect_to @site, notice: 'Site was successfully created.' }
+        flash[:success] = 'Site was successfully created.'
+        format.html { redirect_to @site}
         format.json { render :show, status: :created, location: @site }
       else
         format.html { render :new }
@@ -43,7 +56,8 @@ class SitesController < ApplicationController
   def update
     respond_to do |format|
       if @site.update(site_params)
-        format.html { redirect_to @site, notice: 'Site was successfully updated.' }
+        flash[:success] = "Site was successfully updated."
+        format.html { redirect_to @site }
         format.json { render :show, status: :ok, location: @site }
       else
         format.html { render :edit }
@@ -62,7 +76,7 @@ class SitesController < ApplicationController
     end
   end
 
-  def sync_all_plugins
+  def sync_all
     sites = Site.all
     sites.each do |site|
       url = URI.join(site.domain, "/api/pronto/get_active_woocommerce_plugins_and_version/")
@@ -77,7 +91,27 @@ class SitesController < ApplicationController
       end
     end
     respond_to do |format|
-      format.html { redirect_to sites_url, notice: 'All Plugins version was successfully updated for each site.' }
+      flash[:success] = 'All Plugins version was successfully updated for each site.'
+      format.html { redirect_to sites_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def sync_each
+    site = set_site
+    url = URI.join(site.domain, "/api/pronto/get_active_woocommerce_plugins_and_version/")
+    response = HTTP.get(url)
+    redirect_to site_url and return unless response.status.success?
+    all_plugins = response.parse['plugins']
+    all_plugins.each do |name, version|
+      plugin = Plugin.find_by(name: name)
+      site.plugin_trackers.find_or_initialize_by(
+        plugin: plugin
+      ).update_attributes({current_version: version})
+    end
+    respond_to do |format|
+      flash[:success] = "All Plugins version was successfully updated for #{site.name}."
+      format.html { redirect_to site_url }
       format.json { head :no_content }
     end
   end
