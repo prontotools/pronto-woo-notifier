@@ -4,11 +4,31 @@
     <title>App</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
-    <%= yield %>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-static-top">
+        <a class="navbar-brand" href="#">ProntoTools WooNotifier</a>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <%= link_to "Sites", sites_url, :class => "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Plugins", plugins_url, :class => "nav-link" %>
+          </li>
+        </ul>
+      </nav>
+
+    <div id="wrap">
+      <div id="main" class="container clear-top">
+        <% flash.each do |message_type, message| %>
+          <div class="alert alert-<%= message_type %>"><%= message %></div>
+        <% end %>
+        <%= yield %>
+      </div> <!-- /container -->
+    </div>
   </body>
 </html>

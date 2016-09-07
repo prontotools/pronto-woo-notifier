@@ -1,32 +1,13 @@
 <%= form_for(site) do |f| %>
-  <% if site.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(site.errors.count, "error") %> prohibited this site from being saved:</h2>
-
-      <ul>
-      <% site.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
+    <%= render 'shared/error_messages', site: site %>
     <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+    <%= f.text_field :name, class: 'form-control' %>
 
-  <div class="field">
     <%= f.label :domain %>
-    <%= f.text_field :domain %>
-  </div>
+    <%= f.text_field :domain, class: 'form-control' %>
 
-  <div class="field">
     <%= f.label :port %>
-    <%= f.text_field :port %>
-  </div>
+    <%= f.text_field :port, class: 'form-control' %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.submit class: "btn btn-primary" %>
 <% end %>

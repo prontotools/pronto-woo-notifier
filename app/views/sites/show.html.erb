@@ -1,38 +1,39 @@
-<p id="notice"><%= notice %></p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+      <div class="pull-right">
+        <%= link_to 'Back', sites_path, class: "btn btn-default m-r-5" %>
+        <%= link_to 'Edit', edit_site_path(@site), class: "btn btn-primary" %>
+        <%= link_to 'Sync', site_sync_path, class: "btn btn-success", id: "sync_btn" %>
+      </div>
+      <h3><%= @site.name %></h3>
+  </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @site.name %>
-</p>
-
-<p>
-  <strong>Domain:</strong>
-  <%= @site.domain %>
-</p>
-
-<p>
-  <strong>Port:</strong>
-  <%= @site.port %>
-</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Plugin</th>
-      <th>Current Version</th>
-      <th>Latest Version</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @plugin_trackers.each do |plugin_tracker| %>
+  <div class="panel-body">
+    <p>
+      <strong>Domain:</strong>
+      <%= @site.domain %>
+    </p>
+    <p>
+      <strong>Port:</strong>
+      <%= @site.port %>
+    </p>
+  </div>
+  <table data-classes="table table responsive" data-toggle="table" data-search='true'>
+    <thead>
       <tr>
-        <td><%= plugin_tracker.plugin.name %></td>
-        <td><%= plugin_tracker.current_version %></td>
-        <td><%= plugin_tracker.plugin.latest_version %></td>
+        <th data-sortable="true">Plugin</th>
+        <th data-sortable="true">Current Version</th>
+        <th data-sortable="true">Latest Version</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to 'Edit', edit_site_path(@site) %> |
-<%= link_to 'Back', sites_path %>
+    </thead>
+    <tbody>
+      <% @plugin_trackers.each do |plugin_tracker| %>
+        <tr <% if plugin_tracker.current_version != plugin_tracker.plugin.latest_version%> class="bg-danger" <% end %>>
+          <td><%= plugin_tracker.plugin.name %></td>
+          <td><%= plugin_tracker.current_version %></td>
+          <td><%= plugin_tracker.plugin.latest_version %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
