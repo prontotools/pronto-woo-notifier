@@ -1,13 +1,16 @@
 <%= form_for(site) do |f| %>
     <%= render 'shared/error_messages', site: site %>
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
+    <div class="box-body">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
 
-    <%= f.label :domain %>
-    <%= f.text_field :domain, class: 'form-control' %>
+      <%= f.label :domain %>
+      <%= f.text_field :domain, class: 'form-control' %>
 
-    <%= f.label :port %>
-    <%= f.text_field :port, class: 'form-control' %>
-
-    <%= f.submit class: "btn btn-primary" %>
+      <%= f.label :port %>
+      <%= f.text_field :port, class: 'form-control' %>
+    </div>
+    <div class="box-footer">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
 <% end %>

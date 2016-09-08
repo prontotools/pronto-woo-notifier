@@ -1,11 +1,14 @@
+<% provide(:title, 'Edit Site') %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="inline-headers">
+      <h1>Editing Site</h1>
+      <%= link_to 'Back', sites_path, class:"btn btn-default pull-right" %>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-6">
-    <h1>Editing Site</h1>
-  </div>
-  <div class="col-md-6">
-    <%= link_to 'Back', sites_path, class:"btn btn-default pull-right m-t-20" %>
-  </div>
-  <div class="col-md-12">
     <%= render 'form', site: @site %>
   </div>
 </div>

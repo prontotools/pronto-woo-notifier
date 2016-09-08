@@ -6,14 +6,6 @@ html, body {
   height: 100%;
 }
 
-.m-t-20{
-  margin-top: 20px;
-}
-
-.m-r-5{
-  margin-right: 5px;
-}
-
 #wrap {
   min-height: 100%;
 }
@@ -23,31 +15,27 @@ html, body {
   padding-bottom:150px; /* this needs to be bigger than footer height*/
 }
 
-i.fa-smile-o{
-  color: green;
-}
-
-.fa-frown-o{
-  color: red;
-}
-
-@mixin box_sizing {
-  -moz-box-sizing:    border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
-}
-
 /* forms */
-
-input, textarea, select, .uneditable-input {
-  border: 1px solid #bbb;
-  width: 100%;
-  margin-bottom: 15px;
-  @include box_sizing;
+.inline-headers h1, h3{
+  display: inline;
 }
 
-input {
-  height: auto !important;
+.box-body {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding: 10px;
+}
+
+.box-footer {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top: 1px solid #f4f4f4;
+    padding: 10px;
+    background-color: #fff;
 }
 
 #error_explanation {
@@ -65,11 +53,25 @@ input {
   }
 }
 
-.table-disable-hover.table tbody tr:hover td,
-.table-disable-hover.table tbody tr:hover th {
-    background-color: inherit;
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
 }
-.table-disable-hover.table-striped tbody tr:nth-child(odd):hover td,
-.table-disable-hover.table-striped tbody tr:nth-child(odd):hover th {
-  background-color: #f9f9f9;
+
+
+box-body input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+/* font awesome */
+i.fa-smile-o{
+  color: green;
+}
+
+.fa-frown-o{
+  color: red;
 }
