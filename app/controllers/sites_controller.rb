@@ -27,10 +27,7 @@ class SitesController < ApplicationController
 
   # GET /sites/new
   def new
-    puts 'prince'
-    puts ='xxx'
     @site = Site.new
-    puts @site.inspect
   end
 
   # GET /sites/1/edit

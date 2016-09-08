@@ -26,6 +26,10 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
   test "should show site" do
     get site_url(@site)
     assert_response :success
+    assert_select "#{@site.name}"
+    assert_select "#{@site.domain}"
+    assert_select "#{@site.port}"
+    assert_select "#{@site.database_name}"
   end
 
   test "should get edit" do
