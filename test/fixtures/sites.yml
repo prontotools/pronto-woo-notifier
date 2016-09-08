@@ -4,3 +4,4 @@ one:
   name: PClantech
   domain: http://www.PClantech.com
   port: 9999
+  database_name: "database"

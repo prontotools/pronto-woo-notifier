@@ -16,8 +16,8 @@ class AddNewSiteTest < ActionDispatch::IntegrationTest
       assert_difference "Site.count", 1 do
         post sites_path, params:{ site: { name: "PClantech",
                                           domain: "http://www.pclantech.com",
-                                          port: "100"}}
-
+                                          port: "100",
+                                          database_name: "database"}}
       end
   end
 

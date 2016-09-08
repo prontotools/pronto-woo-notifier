@@ -17,7 +17,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create site" do
     assert_difference('Site.count') do
-      post sites_url, params: { site: { domain: "http://www.elg.com", name: "ELG", port: 8888 } }
+      post sites_url, params: { site: { domain: "http://www.elg.com", name: "ELG", port: 8888, database_name: "database" }}
     end
 
     assert_redirected_to site_url(Site.last)

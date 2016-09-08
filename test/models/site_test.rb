@@ -4,7 +4,8 @@ class SiteTest < ActiveSupport::TestCase
     def setup
         @site = Site.new(name: "PClantech",
                         domain: "http://www.pclantech.com",
-                        port: "1000")
+                        port: "1000",
+                        database_name: "database")
     end
 
     test "name should be present" do
@@ -31,7 +32,8 @@ class SiteTest < ActiveSupport::TestCase
         @duplicate_site = Site.new(
             name: "ELG",
             domain: "http://www.elg.com",
-            port: "1000"
+            port: "1000",
+            database_name: "database"
         )
         @site.save
         assert_not @duplicate_site.save
