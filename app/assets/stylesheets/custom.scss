@@ -15,9 +15,13 @@ html, body {
   padding-bottom:150px; /* this needs to be bigger than footer height*/
 }
 
+.m-b-15{
+  margin-bottom: 15px;
+}
 /* forms */
 .inline-headers h1, h3{
   display: inline;
+  margin-bottom: 15px
 }
 
 .box-body {

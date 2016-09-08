@@ -3,8 +3,8 @@
   <div class="panel-heading">
       <div class="pull-right">
         <%= link_to 'Back', sites_path, class: "btn btn-default" %>
-        <%= link_to 'Edit', edit_site_path(@site), class: "btn btn-primary" %>
         <%= link_to 'Sync', site_sync_path, class: "btn btn-success", id: "sync_btn" %>
+        <%= link_to 'Edit', edit_site_path(@site), class: "btn btn-primary" %>
       </div>
       <h3><%= @site.name %></h3>
   </div>
