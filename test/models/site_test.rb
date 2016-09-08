@@ -22,6 +22,11 @@ class SiteTest < ActiveSupport::TestCase
         assert_not @site.valid?
     end
 
+    test "database name should be present" do
+        @site.database_name = ""
+        assert_not @site.valid?
+    end
+
     test "port should be unique" do
         @duplicate_site = Site.new(
             name: "ELG",
