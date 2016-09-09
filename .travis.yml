@@ -34,6 +34,3 @@ before_deploy:
   - eval "$(ssh-agent -s)"
   - chmod 600 $TRAVIS_BUILD_DIR/deploy_key
   - ssh-add $TRAVIS_BUILD_DIR/deploy_key
-
-deploy:
-  - ssh ubuntu@54.171.218.135
