@@ -8,7 +8,10 @@ services:
   - docker
 
 env:
-  DOCKER_COMPOSE_VERSION: 2
+  - global:
+    - DOCKER_COMPOSE_VERSION: 2
+    - REPO=prontotools/pronto-woo-notifier
+    - COMMIT=${TRAVIS_COMMIT::8}
 
 install: true
 
@@ -20,3 +23,8 @@ script:
 
 after_script:
   - docker-compose down
+
+after_success:
+  - docker build -t $REPO:$COMMIT ./compose/rails/Dockerfile
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - docker push $REPO;
