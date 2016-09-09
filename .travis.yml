@@ -15,16 +15,13 @@ env:
 
 install: true
 
-# before_script:
-#   -docker-compose -f docker-compose.test.yml build
-
 script:
   - docker-compose -f docker-compose.test.yml run sut
 
-after_script:
-  - docker-compose down
-
 after_success:
-  - docker build -t $REPO:$COMMIT ./compose/rails/Dockerfile
+  - docker build -t $REPO:$COMMIT ./compose/rails
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   - docker push $REPO;
+
+after_script:
+  - docker-compose down
