@@ -19,7 +19,7 @@ script:
   - docker-compose -f docker-compose.test.yml run sut
 
 after_success:
-  - docker build -t $REPO:$COMMIT ./compose/rails
+  - docker build -t $REPO:$COMMIT -f ./compose/rails/Dockerfile .
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   - docker push $REPO;
 
