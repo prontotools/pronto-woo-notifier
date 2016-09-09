@@ -18,6 +18,10 @@ COPY ./compose/rails/start-dev.sh /start-dev.sh
 RUN sed -i 's/\r//' /start-dev.sh
 RUN chmod +x /start-dev.sh
 
+COPY ./compose/rails/start-production.sh /start-production.sh
+RUN sed -i 's/\r//' /start-production.sh
+RUN chmod +x /start-production.sh
+
 RUN mkdir -p $APPLICATION_ROOT
 WORKDIR $APPLICATION_ROOT
 ADD . $APPLICATION_ROOT
