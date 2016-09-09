@@ -13,6 +13,10 @@ env:
     - REPO=prontotools/pronto-woo-notifier
     - COMMIT=${TRAVIS_COMMIT::8}
 
+before_install:
+  - openssl aes-256-cbc -K $encrypted_cb4670bf9992_key -iv $encrypted_cb4670bf9992_iv
+    -in deploy_key.enc -out deploy_key -d
+
 install: true
 
 script:
@@ -21,19 +25,11 @@ script:
 after_success:
   - docker build -t $REPO:$COMMIT -f ./compose/rails/Dockerfile .
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - docker push $REPO;
-
-after_script:
-  - docker-compose down
-
-before_install:
-  - openssl aes-256-cbc -K $encrypted_cb4670bf9992_key -iv $encrypted_cb4670bf9992_iv
-    -in deploy_key.enc -out deploy_key -d
-
-before_deploy:
+  - docker push $REPO
   - eval "$(ssh-agent -s)"
   - chmod 600 $TRAVIS_BUILD_DIR/deploy_key
   - ssh-add $TRAVIS_BUILD_DIR/deploy_key
+  - ssh ubuntu@54.171.218.135
 
-deploy:
-  - echo "hello"
+after_script:
+  - docker-compose down
