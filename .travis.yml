@@ -1,8 +1,7 @@
 sudo: required
 language: python
 python:
-  - "2.7"
-
+- '2.7'
 services:
 - docker
 env:
@@ -11,8 +10,10 @@ env:
     - DOCKER_COMPOSE_VERSION: 2
     - REPO=prontotools/pronto-woo-notifier
     - COMMIT=${TRAVIS_COMMIT::8}
-    - secure: JynUFk9+d5G/owHd0ZHvTO3AgBSQ0hQbpTOOVbUBJwHbjzgLLtDARQHxnM7Ec6D/Lu9xl9AmZbFA9QtvvbwAeGJCXgJgJ/inHpnzxJub3kcCzIGHN+ikH7gfkofvjcpVqTOl12NQuQnCJx71zQQLFtE3hk27jX1AXPyvhlNFuuQuwKHhW0DkAnAfIZOdT9aH8/+qvU0rNQ2tve+947TNhItV6F+/Xb4nqlOrd9EAKynv/G/MjCLkWiQM2STwlQJD3L/r+pnu5oW9olq6Xmb36QAKh5S8hLz5T9nSUZ6Y9i9LW3eT3+6kDDPhZN7FjaIJ9fhgfzWoiARyRL3uDh0Ys/iu5C1NJrver6bYl/oa0ESSCqWLwXcjHltCLWFvFN+/hfwM6wS5E09NwzeJ6zYW2v0BN+23Rey7SUv1E4oCxxv6RcrnsekSvELvPTNwDtTCfZbRC0PlWCteUkjjMAxGsUnKhCzMT6O4OoyZWejCdpVUWPKQ/E9M6/eXDtYwcnhKobxqVb1vIEvviLo5r+dGMFYDaZSli5+toD0JRaLeFOe7zHBld6uR/yk/xUynSzTAhvbnaNyJeUmLjwpGjKgo1SaoZ0YhhfcOe4TUYP/j+e97UFWrKGGZVO0ImZjvzDrEBXycx7J1XJ44jE1N1xFj9JwrRkx2Om6pXbN/mkieYwk=
-install: pip install fabric
+before_install:
+- openssl aes-256-cbc -K $encrypted_8946ec3bee6a_key -iv $encrypted_8946ec3bee6a_iv
+  -in id_rsa.enc -out id_rsa -d
+install: true
 script:
 - docker-compose -f docker-compose.test.yml run sut
 after_success:
