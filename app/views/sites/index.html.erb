@@ -1,0 +1,43 @@
+<% provide(:title, 'All Sites') %>
+<div class="row m-b-15">
+  <div class="col-md-12">
+    <div class="inline-headers">
+      <h1>Sites</h1>
+      <div class="pull-right">
+        <%= link_to 'Sync', sites_sync_path, class: "btn btn-success", id: "sync_btn"%>
+        <%= link_to 'New Site', new_site_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<table data-classes="table table responsive" data-toggle="table" data-search='true' data-sort-name="status" data-sort-order="asc">
+  <thead>
+    <tr>
+      <th data-sortable="true">Name</th>
+      <th data-sortable="true">Domain</th>
+      <th data-sortable="true">Port</th>
+      <th data-sortable ="true"  data-field="status">Status</th>
+      <th>Manage</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contexts.each do |context| %>
+      <tr>
+        <td><%= link_to context[:site].name, context[:site] %></td>
+        <td><%= link_to context[:site].domain, context[:site].domain, target: "_blank" %></td>
+        <td><%= context[:site].port %></td>
+        <td>
+          <% if context[:need_update] %>
+            <i class="fa fa-frown-o fa-2x" aria-hidden="true"></i>
+          <% else %>
+            <i class="fa fa-smile-o fa-2x" aria-hidden="true"></i>
+          <% end %>
+        </td>
+        <td><%= link_to 'Edit', edit_site_path(context[:site]), class: "btn btn-info btn-sm" %> <%= link_to 'Destroy', context[:site], method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger btn-sm" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

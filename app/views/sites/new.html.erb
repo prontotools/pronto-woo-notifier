@@ -1,0 +1,28 @@
+<% provide(:title, 'New Site') %>
+<div class="row m-b-15">
+  <div class="col-md-12">
+    <div class="inline-headers">
+      <h1>New Site</h1>
+      <%= link_to 'Back', sites_path, class:"btn btn-default pull-right" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <%= render 'form', site: @site %>
+  <div>
+</div>
+
+<!-- <div class="row">
+  <div class="col-md-12">
+    <div class="inline-headers">
+      <h1>New Site</h1>
+      <%= link_to 'Back', sites_path, class:"btn btn-default pull-right" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= render 'form', site: @site %>
+  </div>
+</div> -->

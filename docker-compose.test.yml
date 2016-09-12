@@ -1,0 +1,12 @@
+version: '2'
+services:
+  db:
+    image: postgres
+  sut:
+    build:
+      context: .
+      dockerfile: ./compose/rails/Dockerfile.test
+    entrypoint: /entrypoint.sh
+    command: /run-test.sh
+    depends_on:
+      - db

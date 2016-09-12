@@ -1,0 +1,22 @@
+version: '2'
+services:
+  db:
+    image: postgres
+    volumes:
+      - /var/lib/docker/postgres-data:/var/lib/postgresql/data
+    env_file: .rbenv-vars
+
+  web:
+    image: {}
+    command: /start-production.sh
+    depends_on:
+      - db
+    env_file:
+      - .rbenv-vars
+
+  nginx:
+    build: ./compose/nginx
+    depends_on:
+      - web
+    ports:
+      - "0.0.0.0:80:80"

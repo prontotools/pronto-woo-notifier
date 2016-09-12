@@ -1,0 +1,16 @@
+version: '2'
+services:
+  db:
+    image: postgres
+  web:
+    build:
+      context: .
+      dockerfile: ./compose/rails/Dockerfile
+    entrypoint: /entrypoint.sh
+    command: /start-dev.sh
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db

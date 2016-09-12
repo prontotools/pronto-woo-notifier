@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @plugin.name %>
+</p>
+
+<p>
+  <strong>Latest version:</strong>
+  <%= @plugin.latest_version %>
+</p>
+
+<%= link_to 'Edit', edit_plugin_path(@plugin) %> |
+<%= link_to 'Back', plugins_path, class: 'btn' %>

@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: PClantech
+  domain: http://www.PClantech.com
+  port: 9999
+  database_name: "database"
