@@ -17,15 +17,9 @@ install: true
 
 script:
   - docker-compose -f docker-compose.test.yml run sut
-#
-# after_success:
-#   - bash deploy.sh
+
+after_success:
+  - bash deploy.sh
 
 after_script:
   - docker-compose down
-
-deploy:
-  provider: script
-  script: bash deploy.sh
-  on:
-    branch: master
