@@ -10,9 +10,6 @@ env:
     - DOCKER_COMPOSE_VERSION: 2
     - REPO=prontotools/pronto-woo-notifier
     - COMMIT=${TRAVIS_COMMIT::8}
-before_install:
-- openssl aes-256-cbc -K $encrypted_8946ec3bee6a_key -iv $encrypted_8946ec3bee6a_iv
-  -in id_rsa.enc -out id_rsa -d
 install: true
 script:
 - docker-compose -f docker-compose.test.yml run sut
