@@ -15,7 +15,7 @@ services:
       - .rbenv-vars
 
   nginx:
-    build: prontotools/pronto-woo-notifier-nginx:1.0.0
+    image: prontotools/pronto-woo-notifier-nginx:1.0.0
     depends_on:
       - web
     ports:
