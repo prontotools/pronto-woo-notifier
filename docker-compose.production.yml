@@ -15,7 +15,7 @@ services:
       - .rbenv-vars
 
   nginx:
-    build: ./compose/nginx
+    build: prontotools/pronto-woo-notifier-nginx:1.0.0
     depends_on:
       - web
     ports:
