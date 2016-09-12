@@ -22,6 +22,6 @@ COPY ./compose/rails/start-production.sh /start-production.sh
 RUN sed -i 's/\r//' /start-production.sh
 RUN chmod +x /start-production.sh
 
-RUN mkdir -p $APPLICATION_ROOT
 WORKDIR $APPLICATION_ROOT
+RUN mkdir -p shared/pids shared/sockets shared/log
 ADD . $APPLICATION_ROOT
