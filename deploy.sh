@@ -19,6 +19,6 @@ mv id_rsa ~/.ssh/id_rsa
 
 echo "Starting deploy...."
 pip install fabric
-sed -i 's/image: {}/image: $REPO:$COMMIT/g' docker-compose.production.yml
+sed -i "s/image: {}/image: $REPO:$COMMIT/g" docker-compose.production.yml
 scp docker-compose.production.yml ubuntu@$PRODUCTION_IP:/home/ubuntu
 fab production deploy
