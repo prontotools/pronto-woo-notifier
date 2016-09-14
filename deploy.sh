@@ -13,9 +13,9 @@ docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
 docker push $REPO
 
 echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-openssl aes-256-cbc -K $encrypted_8946ec3bee6a_key -iv $encrypted_8946ec3bee6a_iv -in deploy.enc -out deploy -d
-chmod 600 deploy
-mv deploy ~/.ssh/deploy
+openssl aes-256-cbc -K $encrypted_8946ec3bee6a_key -iv $encrypted_8946ec3bee6a_iv -in deploy_key.enc -out deploy_key -d
+chmod 600 deploy_key
+mv deploy_key ~/.ssh/deploy_key
 
 echo "Starting deploy...."
 pip install fabric
