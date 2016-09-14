@@ -1,8 +1,9 @@
 from fabric.api import env, run
+import os
 
 
 def production():
-    env.host_string = "54.171.218.135"
+    env.host_string = os.environ['PRODUCTION_IP']
     env.user = 'ubuntu'
 
 

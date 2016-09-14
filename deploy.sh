@@ -14,8 +14,8 @@ docker push $REPO
 
 echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 openssl aes-256-cbc -K $encrypted_8946ec3bee6a_key -iv $encrypted_8946ec3bee6a_iv -in deploy_key.enc -out deploy_key -d
-chmod 600 deploy_key
-mv deploy_key ~/.ssh/deploy_key
+chmod 400 deploy_key
+mv deploy_key ~/.ssh/id_rsa
 
 echo "Starting deploy...."
 pip install fabric
