@@ -10,3 +10,4 @@ services:
     command: /run-test.sh
     depends_on:
       - db
+    dns: 8.8.8.8

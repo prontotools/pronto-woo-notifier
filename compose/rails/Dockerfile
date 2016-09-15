@@ -23,5 +23,4 @@ RUN sed -i 's/\r//' /start-production.sh
 RUN chmod +x /start-production.sh
 
 WORKDIR $APPLICATION_ROOT
-RUN mkdir -p shared/pids shared/sockets shared/log
 ADD . $APPLICATION_ROOT

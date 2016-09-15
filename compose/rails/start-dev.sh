@@ -1,4 +1,5 @@
 #!/bin/sh
+mkdir -p shared/pids shared/sockets shared/log
 rake db:create
 rake db:migrate
 rake db:seed

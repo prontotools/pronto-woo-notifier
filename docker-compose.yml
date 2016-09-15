@@ -14,3 +14,4 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    dns: 8.8.8.8
