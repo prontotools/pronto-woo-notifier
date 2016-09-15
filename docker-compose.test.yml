@@ -3,9 +3,7 @@ services:
   db:
     image: postgres
   sut:
-    build:
-      context: .
-      dockerfile: ./compose/rails/Dockerfile.test
+    images: $REPO:$COMMIT
     entrypoint: /entrypoint.sh
     command: /run-test.sh
     depends_on:

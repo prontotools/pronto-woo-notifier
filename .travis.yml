@@ -11,6 +11,8 @@ env:
     - REPO=prontotools/pronto-woo-notifier
     - COMMIT=${TRAVIS_COMMIT::8}
 install: true
+before_script:
+- docker build -t $REPO:$COMMIT -f ./compose/rails/Dockerfile .
 script:
 - docker-compose -f docker-compose.test.yml run sut
 after_success:
