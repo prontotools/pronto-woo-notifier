@@ -18,10 +18,13 @@ COPY ./compose/rails/start-dev.sh /start-dev.sh
 RUN sed -i 's/\r//' /start-dev.sh
 RUN chmod +x /start-dev.sh
 
+COPY ./compose/rails/run-test.sh /run-test.sh
+RUN sed -i 's/\r//' /run-test.sh
+RUN chmod +x /run-test.sh
+
 COPY ./compose/rails/start-production.sh /start-production.sh
 RUN sed -i 's/\r//' /start-production.sh
 RUN chmod +x /start-production.sh
 
 WORKDIR $APPLICATION_ROOT
-RUN mkdir -p shared/pids shared/sockets shared/log
 ADD . $APPLICATION_ROOT

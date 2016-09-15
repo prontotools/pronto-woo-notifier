@@ -15,7 +15,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', '0.12.2', platforms: :ruby
 
 gem 'bootstrap-will_paginate', '0.0.10'
 
@@ -28,11 +28,11 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'http', '2.0.3'
 
-gem 'webmock'
+gem 'webmock', '2.1.0'
 
-gem "bootstrap-table-rails"
+gem "bootstrap-table-rails", '1.11.0'
 
-gem "font-awesome-rails"
+gem "font-awesome-rails", '4.6.3.1'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
