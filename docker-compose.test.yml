@@ -3,7 +3,7 @@ services:
   db:
     image: postgres
   sut:
-    images: $REPO:$COMMIT
+    images: "${REPO}:${COMMIT}"
     entrypoint: /entrypoint.sh
     command: /run-test.sh
     depends_on:
