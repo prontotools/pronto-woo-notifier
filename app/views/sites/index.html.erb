@@ -2,7 +2,7 @@
 <div class="row m-b-15">
   <div class="col-md-12">
     <div class="inline-headers">
-      <h1>Sites</h1>
+      <h1>Sites (<%= @sites.count %>)</h1>
       <div class="pull-right">
         <%= link_to 'Sync', sites_sync_path, class: "btn btn-success", id: "sync_btn"%>
         <%= link_to 'New Site', new_site_path, class: "btn btn-primary" %>
