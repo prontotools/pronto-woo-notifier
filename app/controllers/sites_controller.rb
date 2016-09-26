@@ -25,6 +25,11 @@ class SitesController < ApplicationController
     @plugin_trackers = @site.plugin_trackers.all
   end
 
+  # GET /sites/api
+  def api
+    render json: Site.all
+  end
+
   # GET /sites/new
   def new
     @site = Site.new

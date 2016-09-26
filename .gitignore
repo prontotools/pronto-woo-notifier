@@ -21,3 +21,6 @@
 
 # Python compile file
 *.pyc
+
+# local mac
+.DS_Store
