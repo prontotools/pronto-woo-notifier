@@ -2,7 +2,7 @@
 <div class="row m-b-15">
   <div class="col-md-12">
     <div class="inline-headers">
-      <h1>Plugins</h1>
+      <h1>Plugins (<%= @plugins.count %>)</h1>
       <%= link_to 'Sync', plugins_sync_path, class: "pull-right btn btn-success", id: "sync_btn"%>
     </div>
 </div>
@@ -11,6 +11,7 @@
   <thead>
     <tr>
       <th data-sortable="true">Name</th>
+      <th data-sortable="true">Sites Installed</th>
       <th data-sortable="true">Latest version</th>
     </tr>
   </thead>
@@ -19,6 +20,7 @@
     <% @plugins.each do |plugin| %>
       <tr>
         <td><%= plugin.name %></td>
+        <td><%= plugin.plugin_trackers.all.count %></td>
         <td><%= plugin.latest_version %></td>
       </tr>
     <% end %>
