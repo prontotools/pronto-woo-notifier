@@ -12,7 +12,7 @@ docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
 docker push $REPO
 
 echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-openssl aes-256-cbc -K $encrypted_8946ec3bee6a_key -iv $encrypted_8946ec3bee6a_iv -in deploy_key.enc -out deploy_key -d
+openssl aes-256-cbc -K $encrypted_5912ca40cb57_key -iv $encrypted_5912ca40cb57_key -in deploy_key.enc -out deploy_key -d
 chmod 400 deploy_key
 mv deploy_key ~/.ssh/id_rsa
 
