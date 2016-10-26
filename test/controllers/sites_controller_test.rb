@@ -104,7 +104,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to sites_url
   end
 
-  test "should redirect ro sites url when error(sync_all)" do
+  test "should redirect to sites url when error(sync_all)" do
     url = "http://www.pclantech.com/api/pronto/get_active_woocommerce_plugins_and_version/"
     body_response = {
         "status": "error"
@@ -120,6 +120,46 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to sites_url
+  end
+
+  test "should show error msg when missing plugin(sync all)" do
+    url = "http://www.pclantech.com/api/pronto/get_active_woocommerce_plugins_and_version/"
+    body_response = {
+        "status": "ok", "plugins": {"WooCommerce-Product": "4.4.14"}
+    }.to_json
+    stub_request(:get, url).to_return(
+      :status => 200, :body => body_response, :headers => {
+        'Content-Type' => 'application/json'
+      }
+    )
+
+    assert_no_difference "Site.first.plugins.count" do
+      get sites_sync_url
+    end
+
+    assert_equal flash[:danger], "Please install \"WooCommerce-Product\" plugin in ProntoTools PI."
+
+    assert_redirected_to sites_url
+  end
+
+  test "should show error msg when missing plugin(sync each)" do
+    url = "http://www.pclantech.com/api/pronto/get_active_woocommerce_plugins_and_version/"
+    body_response = {
+        "status": "ok", "plugins": {"WooCommerce-Product": "4.4.14"}
+    }.to_json
+    stub_request(:get, url).to_return(
+      :status => 200, :body => body_response, :headers => {
+        'Content-Type' => 'application/json'
+      }
+    )
+
+    assert_no_difference "Site.first.plugins.count" do
+      get site_sync_url(@site)
+    end
+
+    assert_equal flash[:danger], "Please install \"WooCommerce-Product\" plugin in ProntoTools PI."
+
+    assert_redirected_to site_url(@site)
   end
 
 
