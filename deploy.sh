@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -x
 
 if [ "$TRAVIS_PULL_REQUEST" != "false" -o  "$TRAVIS_BRANCH" != "master" ]; then
     echo "Skiping Deploy, Just run test"
