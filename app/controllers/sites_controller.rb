@@ -90,6 +90,8 @@ class SitesController < ApplicationController
       all_plugins = response.parse['plugins']
       all_plugins.each do |name, version|
         plugin = Plugin.find_by(name: name)
+        flash[:danger] = "Please install \"#{name}\" plugin in ProntoTools PI."
+        redirect_to sites_url and return if plugin.nil?
         site.plugin_trackers.find_or_initialize_by(
           plugin: plugin
         ).update_attributes({current_version: version})
@@ -110,12 +112,15 @@ class SitesController < ApplicationController
     all_plugins = response.parse['plugins']
     all_plugins.each do |name, version|
       plugin = Plugin.find_by(name: name)
+      flash[:danger] = "Please install \"#{name}\" plugin in ProntoTools PI."
+      redirect_to site_url and return if plugin.nil?
+      
       site.plugin_trackers.find_or_initialize_by(
         plugin: plugin
       ).update_attributes({current_version: version})
     end
     respond_to do |format|
-      flash[:success] = "All Plugins version was successfully updated for #{site.name}."
+      flash[:danger] = "All Plugins version was successfully updated for #{site.name}."
       format.html { redirect_to site_url }
       format.json { head :no_content }
     end
