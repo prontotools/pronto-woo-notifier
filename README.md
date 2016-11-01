@@ -24,3 +24,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## Useful Links
+
+* [Travis CI deployments to DigitalOcean](https://kjaer.io/travis/)
